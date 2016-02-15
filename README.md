@@ -45,6 +45,35 @@ region=us-west-2
 ```
 
 
+- cp7 auto-scaling
+By default instances will be monitored by CloudWatch for a minimum period of 300 seconds for no charge.  
+Select the Enable CloudWatch detailed monitoring checkbox(60 seconds) will incur additional charges.
+
+autoscaling cmds
+```
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names  name
+aws autoscaling suspend-processes --auto-scaling-group-name name  //suspend
+aws autoscaling resume-processes --auto-scaling-group-name name //resume
+```
+(if you wish to suspend or resume only a particular process from the entire Auto Scaling activity, then you will have to use the --scaling-processes attribute along with your suspend-processes and resume-processes commands.)
+```
+awsautoscaling suspend-processes --auto-scaling-group-name name  --scaling-processes HealthCheck
+```
+(You can use the following set of processes with the suspend/resume commands: Launch, Terminate, HealthCheck, ReplaceUnhealthy, AZRebalance, AlarmNotification, ScheduledActions, and AddToLoadBalancer.)
+
+
+set max min size
+```
+aws autoscaling update-auto-scaling-group --auto-scaling-group-name name --max-size 0 --min-size 0
+```
+
+cleanup:
+```
+aws autoscaling delete-auto-scaling-group --auto-scaling-group-name name
+aws autoscaling delete-launch-configuration --launch-configuration-name confname
+aws elb delete-load-balancer elbname
+```
+
 - cp9 s3
 s3cmd(only support python 2.x)
 ```
