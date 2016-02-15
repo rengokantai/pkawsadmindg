@@ -74,6 +74,41 @@ aws autoscaling delete-launch-configuration --launch-configuration-name confname
 aws elb delete-load-balancer elbname
 ```
 
+
+- cp8 RDS
+RDS->create subnet group, add subnets,such as us-west-1a us-west-1b  
+launch instance->  -> set segroup->open port 3306(mysql),1433(sql server)  
+test:
+```
+sudo yum install mysql  
+```
+change rds cmd
+```
+aws rds  modify-db-instance --db-instance-identifier dbname --allocate-storage 100 --db-instance-class db.m1.large //100gb
+```
+
+create snapshots (instaed of auto backup)
+```
+aws rds create-db-snapshot --db-instance-identifier dbname --db-snapshot-identifier snapshotname
+```
+
+create read replica
+```
+aws rds create-db-instance-read-replica --db-instance-identifier newdbname --source-db-instance-identifier dbname --region us-east-1
+```
+
+promote read replica to primary
+```
+aws rds promote-read-replica --backup-retention-period 7 --preferred-backup-window 00:00-00:30 --region us-east-1 --db-instance-identifier newdbname (must a read replica db)
+```
+
+delete
+```
+aws rds delete-db-instance dbname --final-db-snapshot-identifier snapshot
+```
+
+
+
 - cp9 s3
 s3cmd(only support python 2.x)
 ```
