@@ -1,4 +1,9 @@
 # pkawsadmindg
+- cp5
+security groups as they are instance specific, whereas Network ACLs are subnet specific. 
+Each subnet in a VPC has to be associated with a single route table at any given time; however, you can attach multiple subnets to a single route table as well.
+
+
 
 - cp6
 create a cloudwatch role, create a ec2 instance, attach the role to instance. 
@@ -45,7 +50,8 @@ region=us-west-2
 ```
 
 
-- cp7 auto-scaling
+- cp7   
+auto-scaling  
 By default instances will be monitored by CloudWatch for a minimum period of 300 seconds for no charge.  
 Select the Enable CloudWatch detailed monitoring checkbox(60 seconds) will incur additional charges.
 
@@ -104,7 +110,7 @@ aws rds promote-read-replica --backup-retention-period 7 --preferred-backup-wind
 
 delete
 ```
-aws rds delete-db-instance dbname --final-db-snapshot-identifier snapshot
+aws rds delete-db-instance --db-instance-identifier db --final-db-snapshot-identifier snapshotname --region us-east-1 //create snapshot before delete db
 ```
 
 
@@ -140,3 +146,15 @@ finally, enable cross region replication. first, create a bucket in another regi
    ]
 }
 ```
+
+- cp10
+Route53  
+Name Server (NS)  
+Start Of Authority (SOA)  
+
+create record set:  
+A record: ipv4  
+AAAA record: ipv6  
+  
+create a elb, and copy to value.
+
